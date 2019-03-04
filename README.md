@@ -2,10 +2,6 @@
 
 Yo dawg, I heard you like Ansible, so I put Ansible in your Ansible!
 
-# openshift-ansible-ansible
-
-Yo dawg, I heard you like Ansible, so I put Ansible in your Ansible!
-
 This is an Ansible role which deploys OpenShift using openshift-ansible.
 
 It's suitable for running a single-node production OpenShift host.
