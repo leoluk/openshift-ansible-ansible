@@ -1,0 +1,46 @@
+---
+
+- name: Exclude EPEL Ansible release
+  lineinfile:
+    path: /etc/yum.repos.d/epel.repo
+    line: exclude=ansible*
+    insertafter: \[epel\]
+
+- name: Install repositories for OpenShift master
+  package:
+    name:
+      # TODO: workaround needed until Ansible version and origin repos sorted out.
+      # https://github.com/openshift/openshift-ansible/issues/10445
+      - centos-release-ansible26
+      - centos-release-openshift-origin{{ openshift_version.replace('.', '') }}
+
+- name: Install dependencies for OpenShift master
+  package:
+    name:
+      - ansible
+      - pyOpenSSL
+      - python-cryptography
+      - python-lxml
+      - java-1.8.0-openjdk-headless
+      - patch
+      - httpd-tools
+
+- name: Initial Git checkout for openshift-ansible
+  git:
+    repo: https://github.com/openshift/openshift-ansible.git
+    version: "remotes/origin/release-{{ openshift_version }}"
+    dest: /opt/openshift
+    update: no
+    accept_hostkey: yes
+
+- name: Set virt_sandbox_use_nfs
+  seboolean:
+    name: virt_sandbox_use_nfs
+    state: yes
+    persistent: yes
+
+- name: Set virt_use_nfs
+  seboolean:
+    name: virt_use_nfs
+    state: yes
+    persistent: yes

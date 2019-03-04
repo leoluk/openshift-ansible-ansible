@@ -1,0 +1,25 @@
+---
+
+# Create groups
+
+- name: Template groups
+  template:
+    src: group.yaml.j2
+    dest: "{{ openshift_ansible_tmp }}/group-{{ item.key }}.yaml"
+  loop: "{{ openshift_groups|dict2items }}"
+
+- name: Apply groups
+  shell: oc apply -f "{{ openshift_ansible_tmp }}/group-{{ item.key }}.yaml"
+  loop: "{{ openshift_groups|dict2items }}"
+
+# Create clusterrolebindings
+
+- name: Template clusterrolebindings
+  template:
+    src: group-clusterrolebinding.yaml.j2
+    dest: "{{ openshift_ansible_tmp }}/group-clusterrolebinding-{{ item.key }}.yaml"
+  loop: "{{ openshift_clusterroles|dict2items }}"
+
+- name: Apply clusterrolebindings
+  shell: oc apply -f "{{ openshift_ansible_tmp }}/group-clusterrolebinding-{{ item.key }}.yaml"
+  loop: "{{ openshift_clusterroles|dict2items }}"

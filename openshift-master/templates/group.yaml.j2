@@ -1,0 +1,6 @@
+---
+apiVersion: user.openshift.io/v1
+kind: Group
+metadata:
+  name: {{ item.key }}
+users: {{ item.value|to_yaml }}

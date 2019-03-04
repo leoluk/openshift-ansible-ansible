@@ -1,0 +1,7 @@
+---
+- import_tasks: dependencies.yml
+- import_tasks: ansible.yml
+# TODO: run Ansible deployment on the host and wait for it to complete
+- import_tasks: users.yml
+- import_tasks: localstorage.yml
+  when: openshift_localstorage_enabled

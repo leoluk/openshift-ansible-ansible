@@ -1,0 +1,27 @@
+---
+
+openshift_version: "3.11"
+
+# OpenShift-Ansible inventory
+openshift_ansible_inventory: {}
+
+# List of groups to create
+openshift_groups:
+  admin-users:
+    - account@example.com
+
+# List of groups assigned to cluster roles
+openshift_clusterroles:
+  cluster-admin: [admin-users]
+
+# List of projects and rolebindings to create
+openshift_projects: []
+
+# Local storage config (this creates the additional objects beyond inventory config)
+openshift_localstorage_enabled: yes
+openshift_localstorage_basedir: /volumes/local-storage
+openshift_localstorage_num_volumes: 100
+openshift_localstorage_capacity: 50Gi
+
+# Set up custom volume paths like /volumes/hosted_volumes, with proper SELinux labelling.
+openshift_localstorage_custom_dirs: []

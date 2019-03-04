@@ -1,0 +1,13 @@
+---
+
+- name: Write out Ansible hosts config
+  copy:
+    content: >
+      {{ openshift_ansible_inventory
+      |to_nice_yaml|regex_replace('<host-inserted-here>', inventory_hostname) }}
+    dest: /etc/ansible/hosts
+
+- name: k8s templated objects directory
+  file:
+    state: directory
+    path: "{{ openshift_ansible_tmp }}"

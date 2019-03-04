@@ -1,0 +1,17 @@
+---
+apiVersion: authorization.openshift.io/v1
+groupNames:
+{% for group in item.value %}
+- {{ group }}
+{% endfor %}
+kind: ClusterRoleBinding
+metadata:
+  name: {{ item.key }}-ansible
+roleRef:
+  name: {{ item.key }}
+subjects:
+{% for group in item.value %}
+- kind: Group
+  name: {{ group }}
+{% endfor %}
+userNames: null
