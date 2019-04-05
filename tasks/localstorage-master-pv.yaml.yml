@@ -1,0 +1,13 @@
+---
+
+# TODO: simplify this by rendering a single List object
+
+- name: Template local-storage PV template for {{ item }}
+  template:
+    src: pv.yaml.j2
+    dest: "{{ openshift_ansible_tmp }}/pv.yaml"
+
+- name: Create PVs for {{ item }}
+  shell: echo {0..{{ openshift_localstorage_num_volumes }}} | xargs -d ' ' -n 1 -I '{}' sed 's/<name>/vol{}/' {{ openshift_ansible_tmp }}/pv.yaml | oc create -f -
+  # will fail when volumes already exist
+  failed_when: no

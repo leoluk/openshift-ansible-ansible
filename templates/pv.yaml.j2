@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: local-{{ inventory_hostname }}-<name>
+  name: local-{{ item }}-<name>
 spec:
   capacity:
     storage: {{ openshift_localstorage_capacity }}
@@ -19,4 +19,4 @@ spec:
         - key: kubernetes.io/hostname
           operator: In
           values:
-          - {{ inventory_hostname }}
+          - {{ item }}

@@ -9,10 +9,7 @@
 - name: Install repositories for OpenShift master
   package:
     name:
-      # TODO: workaround needed until Ansible version and origin repos sorted out.
-      # https://github.com/openshift/openshift-ansible/issues/10445
       - centos-release-ansible26
-      - centos-release-openshift-origin{{ openshift_version.replace('.', '') }}
 
 - name: Install dependencies for OpenShift master
   package:

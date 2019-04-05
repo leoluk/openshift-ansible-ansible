@@ -17,11 +17,26 @@ openshift_clusterroles:
 # List of projects and rolebindings to create
 openshift_projects: []
 
-# Local storage config (this creates the additional objects beyond inventory config)
-openshift_localstorage_enabled: yes
+# Local storage creation (this creates the additional objects beyond inventory config)
+openshift_localstorage_enabled: yes  # make sure to modify openshift_localstorage_hosts as well
 openshift_localstorage_basedir: /volumes/local-storage
 openshift_localstorage_num_volumes: 100
 openshift_localstorage_capacity: 50Gi
 
+# List of hosts to create PV objects for.
+# Set to None if local storage is disabled.
+openshift_localstorage_hosts: ["{{ inventory_hostname }}"]
+
 # Set up custom volume paths like /volumes/hosted_volumes, with proper SELinux labelling.
 openshift_localstorage_custom_dirs: []
+
+# Distinguish between nodes and Ansible masters
+openshift_is_ansible_master: yes
+
+# Deploy SSH key for master host
+# TODO: collect the public key automatically - two step procedure for now
+openshift_ssh_public_key: 'ssh-rsa ...'
+
+# IP or FQDN of the Ansible master (used to restrict the SSH key)
+openshift_ssh_from: 0.0.0.0/0
+

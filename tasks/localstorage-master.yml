@@ -1,0 +1,12 @@
+---
+
+- include_tasks: localstorage-master-pv.yaml
+  loop: "{{ openshift_localstorage_hosts }}"
+
+- name: Template local-storage storage class
+  template:
+    src: storage-class.yaml.j2
+    dest: "{{ openshift_ansible_tmp }}/storage-class.yaml"
+
+- name: Apply local-storage storage class
+  shell: oc apply -f "{{ openshift_ansible_tmp }}/storage-class.yaml"
