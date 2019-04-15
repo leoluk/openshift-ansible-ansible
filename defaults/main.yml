@@ -30,8 +30,13 @@ openshift_localstorage_hosts: ["{{ inventory_hostname }}"]
 # Set up custom volume paths like /volumes/hosted_volumes, with proper SELinux labelling.
 openshift_localstorage_custom_dirs: []
 
-# Distinguish between nodes and Ansible masters
-openshift_is_ansible_master: yes
+# Mark Ansible bootstrap host
+# For a multi-node deployment, set this to false except on the Ansible host.
+openshift_is_ansible_host: yes
+# Mark master host to run "oc" commands on.
+# If you deploy multiple masters, only mark the first one
+# (or commands will be ran multiple times).
+openshift_is_master_host: yes
 
 # Deploy SSH key for master host
 # TODO: collect the public key automatically - two step procedure for now

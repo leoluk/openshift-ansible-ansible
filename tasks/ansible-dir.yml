@@ -1,0 +1,6 @@
+---
+
+- name: k8s templated objects directory
+  file:
+    state: directory
+    path: "{{ openshift_ansible_tmp }}"
