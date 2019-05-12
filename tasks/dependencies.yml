@@ -21,6 +21,7 @@
       - java-1.8.0-openjdk-headless
       - patch
       - httpd-tools
+      - git
 
 - name: Initial Git checkout for openshift-ansible
   git:
