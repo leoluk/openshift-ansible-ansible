@@ -2,6 +2,8 @@
 
 - name: SSH keys
   authorized_key:
-    key: "{{ openshift_ssh_public_key }}"
+    key: "{{ hostvars[item]['public_key'] }}"
     user: root
-    key_options: 'from="{{ openshift_ssh_from }}"'
+    key_options: from="{{ hostvars[item]['ansible_default_ipv4']['address'] }}"
+  loop: "{{ groups['openshift_ansible_hosts'] }}"
+  when: "'openshift_ansible_hosts' in groups and item != inventory_hostname"

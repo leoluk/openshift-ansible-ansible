@@ -7,6 +7,8 @@
     # TODO: run Ansible deployment on the host and wait for it to complete
   when: openshift_is_ansible_host
 
+- import_tasks: node.yml
+
 - block:
   - import_tasks: ansible-dir.yml
   - import_tasks: users.yml
@@ -17,5 +19,3 @@
 - import_tasks: localstorage-dirs.yml
   when: openshift_localstorage_enabled
 
-- import_tasks: node.yml
-  when: not openshift_is_ansible_host

@@ -37,11 +37,3 @@ openshift_is_ansible_host: yes
 # If you deploy multiple masters, only mark the first one
 # (or commands will be ran multiple times).
 openshift_is_master_host: yes
-
-# Deploy SSH key for master host
-# TODO: collect the public key automatically - two step procedure for now
-openshift_ssh_public_key: 'ssh-rsa ...'
-
-# IP or FQDN of the Ansible master (used to restrict the SSH key)
-openshift_ssh_from: 0.0.0.0/0
-

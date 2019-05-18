@@ -16,3 +16,16 @@
   command: ssh-keygen -b 2048 -t rsa -f /root/.ssh/id_rsa -q -N ""
   args:
     creates: /root/.ssh/id_rsa
+
+- name: Retrieve SSH public key
+  slurp:
+    src: /root/.ssh/id_rsa.pub
+  register: ansible_public_key_slurp
+
+- name: Save SSH public key to fact
+  set_fact:
+    public_key: "{{ ansible_public_key_slurp.content | b64decode }}"
+
+- name: Create group of Ansible hosts
+  group_by:
+    key: openshift_ansible_hosts
