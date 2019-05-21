@@ -18,6 +18,8 @@
   loop: "{{ openshift_localstorage_custom_dirs }}"
 
 - name: Create volumes
-  shell: echo {0..{{ openshift_localstorage_num_volumes }}} | xargs -d ' ' -n 1 -I '{}' mkdir -p '{{ openshift_localstorage_basedir }}/vol{}'
+  shell: >
+    echo {0..{{ openshift_localstorage_num_volumes }}} |
+    xargs -d ' ' -n 1 -I '{}' install -d -o 1001 -g 0 -m 0770 '{{ openshift_localstorage_basedir }}/vol{}'
   args:
     creates: "{{ openshift_localstorage_basedir }}/vol{{ openshift_localstorage_num_volumes - 1}}"

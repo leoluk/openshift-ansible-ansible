@@ -8,7 +8,7 @@ spec:
     storage: {{ openshift_localstorage_capacity }}
   accessModes:
   - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Delete
+  persistentVolumeReclaimPolicy: Recycle
   storageClassName: local-storage
   local:
     path: {{ openshift_localstorage_basedir }}/<name>
